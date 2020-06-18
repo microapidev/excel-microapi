@@ -2,3 +2,7 @@
 __pycache__
 venv
 venv-linux
+.idea
+__pycache__
+*.sqlite
+env
