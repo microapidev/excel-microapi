@@ -6,7 +6,7 @@ from django.db import models
 class Files(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
-    content = models.FileField(blank=False, null=False)
+    content = models.FileField(blank=False, null=False, upload_to='files/')
 
     def __str__(self):
         return self.title
