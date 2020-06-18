@@ -132,11 +132,11 @@ if os.getcwd() == '/app':
     DATABASES['default'].update(db_from_env)
     #Honor the 'X-forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
-    
+
     #Allow all host headers
     ALLOWED_HOSTS = ['excel-microapi-dev.herokuapp.com']
     DEBUG = True
-    
+
 # ...
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
