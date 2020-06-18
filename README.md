@@ -46,6 +46,10 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## Step 5:
+### Test with Postman:
+Make a Post request with Postman. You can download it [here](https://www.postman.com/downloads/)
+    ![Making a Post Request](docs/images/posting_a_request_postman.jpg)
 
 
 # Contributing
