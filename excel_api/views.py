@@ -5,10 +5,11 @@ from rest_framework.response import Response
 import json
 import sys
 import xlrd
+import time
 from excel_api.models import Files
 from excel_api.serializers import FileSerializer
 from rest_framework import generics
-
+import pandas as pd
 
 # Create your views here.
 class FilesList(generics.ListCreateAPIView):
@@ -16,11 +17,11 @@ class FilesList(generics.ListCreateAPIView):
     serializer_class = FileSerializer
 
 
-@api_view(['GET', 'POST'])
+@api_view(["GET", "POST"])
 def parserview(request):
-
-    workbook = xlrd.open_workbook('Test.xls')
-    worksheet = workbook.sheet_by_name('Sheet1')
+    start_time = time.time()
+    workbook = xlrd.open_workbook(file_contents=request.FILES.get("FILE").read())
+    worksheet = workbook.sheet_by_name("Sheet1")
     data = []
     keys = [v.value for v in worksheet.row(0)]
     for row_number in range(worksheet.nrows):
@@ -30,7 +31,8 @@ def parserview(request):
         for col_number, cell in enumerate(worksheet.row(row_number)):
             row_data[keys[col_number]] = cell.value
         data.append(row_data)
-
-    json_parsed = {'data': data}
+    end_time = time.time()
+    total_time = round(end_time - start_time, 2)
+    json_parsed = {"data": data, "process_time": total_time}
 
     return Response(json_parsed)
