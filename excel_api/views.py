@@ -18,8 +18,15 @@ class FilesList(generics.ListCreateAPIView):
 
 @api_view(['GET', 'POST'])
 def parserview(request):
-
-    workbook = xlrd.open_workbook('Test.xls')
+    if request.method == 'POST':
+        serializer = FileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+    title = request.data["title"]
+    file = Files.objects.get(title=title)
+    content = file.content
+    # filepath should be content
+    workbook = xlrd.open_workbook(content)
     worksheet = workbook.sheet_by_name('Sheet1')
     data = []
     keys = [v.value for v in worksheet.row(0)]
@@ -30,7 +37,6 @@ def parserview(request):
         for col_number, cell in enumerate(worksheet.row(row_number)):
             row_data[keys[col_number]] = cell.value
         data.append(row_data)
-
     json_parsed = {'data': data}
 
     return Response(json_parsed)
