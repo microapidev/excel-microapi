@@ -18,6 +18,7 @@ class FilesList(generics.ListCreateAPIView):
 
 @api_view(['GET', 'POST'])
 def parserview(request):
+
     workbook = xlrd.open_workbook('Test.xls')
     worksheet = workbook.sheet_by_name('Sheet1')
     data = []
