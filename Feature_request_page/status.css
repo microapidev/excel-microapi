@@ -1,0 +1,73 @@
+body {
+    font-size: 1.6rem;
+    color: rgba(0, 139, 50, 0.8);
+}
+
+#request-status {
+    width: 70%;
+    height: inherit;
+    background-color: white;
+    border-radius: 1.5rem;
+    align-self: center;
+    margin-top: 5rem;
+}
+
+#statusSection {
+    margin: 2.5rem 3rem;
+    padding: 0;
+}
+
+#statusHeading {
+    margin-top: 2rem;
+    padding-bottom: .6rem;
+    display: flex;
+    flex-direction: row;
+    color: rgba(8, 8, 8, 0.87);
+    border-bottom: .05rem solid rgb(192, 191, 191);
+}
+
+.col1 {width: 8%;}
+.col2 {width: 20%;}
+.col3 {width: 40%;}
+.col4 {width: 20%;}
+.col5 {width: 12%;}
+
+.cols {
+    text-align: center;
+}
+
+#requestInfo {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding: .3rem 0;
+    margin-right: 1rem;
+}
+
+.approved {
+    background-color: rgba(0, 139, 50, 0.8);
+    padding: 1rem;
+    border-radius: 2rem;
+    color: white;
+}
+
+.pending {
+    background-color: rgb(192, 191, 191);
+    padding: 1rem;
+    border-radius: 2rem;
+    color: white;
+}
+
+#StatusChecked {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#StatusChecked div {
+    background-color: rgba(0, 139, 50, 0.8);
+    margin-right: 1rem;
+    margin-top: 2.5rem;
+    padding: 1rem 5rem;
+    border-radius: 1rem;
+    color: white;
+}
