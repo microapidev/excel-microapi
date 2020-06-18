@@ -1,17 +1,9 @@
 # Excel MicroAPI
-This is a Microservice for managing Excel files
-<br/>
-It runs on the Django Framework, suppoerted by Django Rest Framework
-<br/>
-Fork the Repo, Clone and Add your features then make a PR to have changes accepted
-
-
-# Excel MicroAPI
 
 This is a Microservice for managing Excel files
 <br/>
 
-It runs on the Django Framework, suppoerted by Django Rest Framework
+It runs on the Django Framework, supported by Django Rest Framework
 
 # Setting Up / Installation
 
