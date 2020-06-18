@@ -6,3 +6,4 @@ venv-linux
 __pycache__
 *.sqlite
 env
+.env
