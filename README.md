@@ -45,11 +45,12 @@ source venv/bin/activate
 ### Install the Libraries needed
 
 ```python
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 ## Step 4:
 ### Start Server:
 ```python
+python manage.py migrate
 python manage.py runserver
 ```
 
