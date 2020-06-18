@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -18,15 +20,11 @@ class FilesList(generics.ListCreateAPIView):
 
 @api_view(['GET', 'POST'])
 def parserview(request):
-    if request.method == 'POST':
-        serializer = FileSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
     title = request.data["title"]
     file = Files.objects.get(title=title)
-    content = file.content
-    # filepath should be content
-    workbook = xlrd.open_workbook(content)
+    content = file.content.url
+    filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), content)
+    workbook = xlrd.open_workbook("."+filepath)
     worksheet = workbook.sheet_by_name('Sheet1')
     data = []
     keys = [v.value for v in worksheet.row(0)]
