@@ -15,6 +15,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .excel_handler import test_file
+from .excel_handler import column_sum
 
 
 # Create your views here.
@@ -78,7 +79,7 @@ def column_sum(request):
         sheet_name = data['sheet']
         column_name = data['column']
         
-        sum_result = column_sum(path_value, sheet_name, column_names)
+        sum_result = column_sum(path_value, sheet_name, column_name)
         return JsonResponse(sum_result, status=201, safe=False)
 
 
