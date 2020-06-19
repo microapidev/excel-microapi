@@ -10,12 +10,13 @@ import xlrd
 from excel_api.models import Files
 from excel_api.serializers import FileSerializer
 from rest_framework import generics
-from excel_api.excel_parser import get_file_name, start_timer
+from excel_api.excel_parser import get_file_name, start_timer, parse_excel_file
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .excel_handler import test_file
 from .excel_handler import column_sum
+
 
 
 # Create your views here.
@@ -32,12 +33,15 @@ class FilesAdd(generics.CreateAPIView):
 
 @api_view(['GET', 'POST'])
 def parserview(request):
-    title = get_file_name(request.data.get('content'))
-    file = Files.objects.get(title=title)
-    content = file.content.url
-    filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), content)
-    data = parse_excel_file(file)
-    json_parsed = data
+    file_obj = request.data.get('content')
+    title = get_file_name(file_obj)
+    result = parse_excel_file(file_obj)
+    if result.get('data') is not None:
+        file = Files.objects.get(title=title)
+        content = file.content.url
+        filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), content)
+
+    json_parsed = result
 
     return Response(json_parsed)
 
