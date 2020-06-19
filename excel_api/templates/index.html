@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel to Google Sheets</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body style="margin: 0; padding: 0; box-sizing:border-box;">
+    <div class="fluid-container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">Excel to Google Sheets</a>
+        </nav>
+        <div class="container mt-5">
+            {% if messages %}
+                {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                            {{ message }}
+                        </div>
+                {% endfor %}
+            {% endif %}
+
+            {% comment %} {% if msg %}
+                {% if msg == 'Worksheet Succesfully exported to google sheets' %}
+                    <div class="alert alert-success" role="alert">{{ msg }}</div>
+                {% else %}
+                    <div class="alert alert-warning" role="alert">{{ msg }}</div>
+                {% endif %}
+            {% endif %} {% endcomment %}
+            
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="form-group">
+                    <label>Select File</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="excel" id="excel">
+                        <label class="custom-file-label" for="excel">Choose file</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Google Sheet ID</label>
+                    <input class="form-control" type="text" name="sheetid" placeholder="Google Sheet ID gotten from google sheet link">
+                </div>
+                <div class="form-group">
+                    <label>Worksheet Name</label>
+                    <input class="form-control" type="text" name="sheetname" placeholder="particular excel worksheet name">
+                </div>
+                <div class="form-group">
+                    <label>Excel File Start Region</label>
+                    <input class="form-control" type="text" name="estart" placeholder="Start Region Ex: A1, B2...">
+                </div>
+                <div class="form-group">
+                    <label>Google Sheet Start Region</label>
+                    <input class="form-control" type="text" name="gstart" placeholder="Start Region Ex: A1, B2..">
+                </div>
+                <button type="submit" class="btn btn-primary">Export</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
