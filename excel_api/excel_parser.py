@@ -18,7 +18,7 @@ def get_file_name(file_bytes_object: bytes) -> str:
     return excel_file_title
 
 
-def parse_excel_file(file_bytes_object: bytes, sheet_name=None) -> Dict[str, Union[str, float]]:
+def parse_excel_file(file_bytes_object: bytes, sheet_name=0) -> Dict[str, Union[str, float]]:
     """
     Parses and Excel Bytes Object
 
@@ -27,7 +27,7 @@ def parse_excel_file(file_bytes_object: bytes, sheet_name=None) -> Dict[str, Uni
         sheet_name Union[str, List]: A column name, or a list of the columns we are interested in
 
     Returns:
-        List: A list of the Excel File contents
+        List: A list of the Excel File contentsn
     """
     process_time = None
     data = None
@@ -35,10 +35,9 @@ def parse_excel_file(file_bytes_object: bytes, sheet_name=None) -> Dict[str, Uni
     try:
         start_time = start_timer()
         df = pd.read_excel(file_bytes_object, sheet_name=sheet_name, parse_dates=False)
-        print(df)
+
         end_time = start_timer()
         process_time = round(end_time - start_time, 2)
-        print(type(df))
         data = df.to_json(orient="records")
         result = {"data": data, "process_time": process_time}
 
@@ -47,9 +46,9 @@ def parse_excel_file(file_bytes_object: bytes, sheet_name=None) -> Dict[str, Uni
         result = {"responseMessage": "Unable to parse, corrupt Excel file or unsupported type"}
         print(e)
 
-    # except Exception as e:
-    #     result = {"responseMessage": "Unable to parse, corrupt Excel file or unsupported type"}
-    #     print(e)
+    except Exception as e:
+        result = {"responseMessage": "Unable to parse, corrupt Excel file or unsupported type"}
+        print(e)
     return result
 
 
