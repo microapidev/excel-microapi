@@ -9,6 +9,6 @@ urlpatterns = [
     path('getall/', FilesList.as_view()),
     path('checkfile/', check_file),
     path('column_sum/', column_sum),
-    path('/export', export),
+    path('export/', export),
 
 ]
