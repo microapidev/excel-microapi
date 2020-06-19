@@ -1,5 +1,6 @@
 import os
 
+from django.conf import settings
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -33,6 +34,7 @@ def parserview(request):
     file = Files.objects.get(title=title)
     content = file.content.url
     filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), content)
+    media_url = settings.MEDIA_URL
     workbook = xlrd.open_workbook("." + filepath)
     worksheet = workbook.sheet_by_name('Sheet1')
     data = []

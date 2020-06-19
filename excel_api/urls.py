@@ -6,4 +6,4 @@ urlpatterns = [
     path('add/', FilesAdd.as_view()),
     path('parse/', parserview),
     path('getall/', FilesList.as_view()),
-
+]
