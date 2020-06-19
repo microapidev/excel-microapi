@@ -11,6 +11,10 @@ from excel_api.models import Files
 from excel_api.serializers import FileSerializer
 from rest_framework import generics
 from excel_api.excel_parser import get_file_name, start_timer
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from .excel_handler import test_file
 
 
 # Create your views here.
@@ -49,3 +53,18 @@ def parserview(request):
     json_parsed = {'data': data, 'process_time': total_time}
 
     return Response(json_parsed)
+
+
+
+@csrf_exempt
+def check_file(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        path_value = data['path']
+        test_result = test_file(path_value)
+        return JsonResponse(test_result, status=201, safe=False)
+
+
+    else:
+        message = "Access Denied, Use post method"
+        return JsonResponse(message, status=400, safe=False)
