@@ -7,3 +7,5 @@ __pycache__
 *.sqlite
 env
 .env
+media/files/*.xls
+media/files/*.xlsx

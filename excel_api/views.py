@@ -16,7 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .excel_handler import test_file
 from .excel_handler import column_sum
-
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -37,13 +37,12 @@ def parserview(request):
     title = get_file_name(file_obj)
     result = parse_excel_file(file_obj)
     if result.get('data') is not None:
-        file = Files.objects.get(title=title)
-        content = file.content.url
-        filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), content)
+        file = Files.objects.create(title=title, content=file_obj)
+        file.save()
 
     json_parsed = result
-
-    return Response(json_parsed)
+    print(result)
+    return JsonResponse(json_parsed)
 
 
 

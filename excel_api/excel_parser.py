@@ -4,7 +4,6 @@ from typing import List, Dict, Union
 import time
 import xlrd.biffh
 
-
 def get_file_name(file_bytes_object: bytes) -> str:
     """
     Gets the filename of the Uploaded file
@@ -40,6 +39,8 @@ def parse_excel_file(file_bytes_object: bytes, sheet_name=0) -> Dict[str, Union[
         process_time = round(end_time - start_time, 2)
         data = df.to_json(orient="records")
         result = {"data": data, "process_time": process_time}
+
+        print("result", type(data))
 
     except xlrd.biffh.XLRDError as e:
         print("Unable to parse, corrupt Excel file or unsupported type")
