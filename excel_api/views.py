@@ -68,3 +68,20 @@ def check_file(request):
     else:
         message = "Access Denied, Use post method"
         return JsonResponse(message, status=400, safe=False)
+    
+    
+@csrf_exempt
+def column_sum(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        path_value = data['path']
+        sheet_name = data['sheet']
+        column_name = data['column']
+        
+        sum_result = column_sum(path_value, sheet_name, column_names)
+        return JsonResponse(sum_result, status=201, safe=False)
+
+
+    else:
+        message = "Access Denied, Use post method"
+        return JsonResponse(message, status=400, safe=False)
