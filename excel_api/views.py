@@ -31,7 +31,7 @@ class FilesAdd(generics.CreateAPIView):
     serializer_class = FileSerializer
 
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def parserview(request):
     file_obj = request.data.get('content')
     title = get_file_name(file_obj)
@@ -41,7 +41,6 @@ def parserview(request):
         file.save()
 
     json_parsed = result
-    print(result)
     return JsonResponse(json_parsed)
 
 

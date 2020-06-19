@@ -37,10 +37,9 @@ def parse_excel_file(file_bytes_object: bytes, sheet_name=0) -> Dict[str, Union[
 
         end_time = start_timer()
         process_time = round(end_time - start_time, 2)
-        data = df.to_json(orient="records")
+        data = df.to_dict(orient="records")
         result = {"data": data, "process_time": process_time}
 
-        print("result", type(data))
 
     except xlrd.biffh.XLRDError as e:
         print("Unable to parse, corrupt Excel file or unsupported type")
