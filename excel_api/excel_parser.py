@@ -2,6 +2,7 @@ import pandas as pd
 import xlrd
 from typing import List, Dict, Union
 import time
+import xlrd.biffh
 
 
 def get_file_name(file_bytes_object: bytes) -> str:
@@ -23,22 +24,30 @@ def parse_excel_file(file_bytes_object: bytes, sheet_name=None) -> Dict[str, Uni
 
     Args:
         file_bytes_object (bytes): A bytes representation of the Excel File
+        sheet_name Union[str, List]: A column name, or a list of the columns we are interested in
 
     Returns:
         List: A list of the Excel File contents
     """
     process_time = None
     data = None
+    result = None
     try:
         start_time = start_timer()
-        df = pd.read_excel(file_bytes_object, sheet_name=sheet_name)
+        df = pd.read_excel(file_bytes_object, sheet_name=sheet_name, parse_dates=False)
         end_time = start_timer()
         process_time = round(end_time - start_time, 2)
         data = df.to_json(orient="records")
-    except Exception as e:
-        print("Error ->", e)
+        result = {"data": data, "process_time": process_time}
 
-    return {"data": data, "process_time": process_time}
+    except xlrd.biffh.XLRDError as e:
+        print("Unable to parse, corrupt Excel or unsupported type")
+        result = {"responseMessage": "Unable to parse, corrupt Excel or unsupported type"}
+        print(e)
+    # except Exception as e:
+    #     result = {"responseMessage": "Unable to parse, corrupt Excel or unsupported type"}
+    #     print(e)
+    return result
 
 
 def start_timer() -> float:
