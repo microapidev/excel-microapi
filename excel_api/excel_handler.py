@@ -5,7 +5,7 @@ import pandas as pd
 
 def test_file(excel_file):
     try:
-        xlrd.open_workbook(excel_file)
+        pd.read_excel(excel_file, sheet_name='Sheet1', parse_dates=False)
 
     except XLRDError as e:
         return e
