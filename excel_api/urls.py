@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import parserview, FilesList
+from .views import parserview, FilesList, FilesAdd
 
 urlpatterns = [
-    path('/add', FilesList.as_view()),
-    path('/parse', parserview),
+    path('add/', FilesAdd.as_view()),
+    path('parse/', parserview),
+    path('getall/', FilesList.as_view()),
 ]
