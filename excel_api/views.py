@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 import json
 import sys
 import xlrd
@@ -71,22 +72,28 @@ def export(request):
         xlApp = win32.Dispatch('Excel.Application')
         if request.FILES:
             data = request.POST.copy()
-            file = request.FILES["excel"]
+            file = request.FILES["excelfile"]
             fs = FileSystemStorage()
             fname = fs.save(file.name, file)
             sheetid = data.get('sheetid')
             sname = data.get('sheetname')
-            estart = data.get('estart')
-            gstart = data.get('gstart')
+            estart = data.get('excelstartregion')
+            gstart = data.get('googlesheetstartregion')
             if file.name == "":
-                messages.error(request, 'File Name is Needed')
-                return HttpResponseRedirect('export')
+                res_msg = {'msg': 'File Name is Needed'}
+                return Response(res_msg, status=400)
+                # messages.error(request, 'File Name is Needed')
+                # return HttpResponseRedirect('export')
             if sheetid == "" or sname == "" or estart == "" or gstart == "":
-                messages.warning(request, 'Please Enter all Fields')
-                return HttpResponseRedirect('export')
+                res_msg = {'msg': 'Please Enter all Fields'}
+                return Response(res_msg, status=400)
+                # messages.warning(request, 'Please Enter all Fields')
+                # return HttpResponseRedirect('export')
             if not checkFile(file.name):
-                messages.error(request, 'File Extension not Supported')
-                return HttpResponseRedirect('export')
+                res_msg = {'msg': 'File Extension not Supported'}
+                return Response(res_msg, status=400)
+                # messages.error(request, 'File Extension not Supported')
+                # return HttpResponseRedirect('export')
             else:
                 xlApp = win32.Dispatch('Excel.Application')
                 wb = xlApp.Workbooks.Open(r""+os.getcwd()+"/media/"+fname)
@@ -94,8 +101,10 @@ def export(request):
                 try:
                     ws = wb.Worksheets(sname)
                 except Exception as e:
-                    messages.error(request, 'Error opening worksheet '+ str(e))
-                    return HttpResponseRedirect('export')
+                    res_msg = {'msg': 'Error opening worksheet '+ str(e)}
+                    return Response(res_msg, status=400)
+                    # messages.error(request, 'Error opening worksheet '+ str(e))
+                    # return HttpResponseRedirect('export')
                 rngData = ws.Range(estart).CurrentRegion()
 
                 #191h4mt1-iSzIdeRdbszAcWaV_m7_gbierp_bLImnWnI
@@ -117,10 +126,16 @@ def export(request):
                         )
                     ).execute()                    
                 except Exception as e:
-                    messages.warning(request, 'Error Uploading to google sheets: '+ str(e))
-                    return HttpResponseRedirect('export')
+                    res_msg = {'msg': 'Error Uploading to google sheets: '+ str(e)}
+                    return Response(res_msg, status=401)
+                    # messages.warning(request, 'Error Uploading to google sheets: '+ str(e))
+                    # return HttpResponseRedirect('export')
+                
+                res_msg = {'msg': 'Worksheet Succesfully exported to google sheets'}
+                return Response(res_msg)
+                # messages.success(request, 'Worksheet Succesfully exported to google sheets')
+                # return HttpResponseRedirect('export')
+    res_msg = {'msg': 'Please Upload a File First'}
+    return Response(res_msg, status=400)
 
-                messages.success(request, 'Worksheet Succesfully exported to google sheets')
-                return HttpResponseRedirect('export')
-
-    return render(request, 'index.html')
+    #return render(request, 'index.html')
