@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div class="container">
+        <ul class="nav justify-content-end mt-2">
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="buttonSort" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Sort by
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="buttonSort">
+                        <a href="#" class="dropdown-item" id="date">Date</a>
+                        <a href="#" class="dropdown-item" id="temp">Temperature</a>
+                        <a href="#" class="dropdown-item" id="pres">Pressure</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <table class="table" id="myList">
+           <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temperature</th>
+                <th>Pressure</th>
+            </tr>
+           </thead>
+           <tbody>
+               <tr>
+                   <td>1</td>
+                   <td>20</td>
+                   <td>10</td>
+               </tr>
+               <tr>
+                    <td>2</td>
+                    <td>21</td>
+                    <td>11</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>22</td>
+                    <td>12</td>
+                </tr>
+           </tbody>
+        </table>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script>
+    function sortList(f,n) {
+        var rows = $('#myList tbody tr').get()
+        rows.sort(function(a,b){
+            var A = getVal(a)
+            var B = getVal(b);
+            if(A < B ){
+                return -1 * f;
+            }
+            if(A > B){
+                return 1 * f;
+            }
+            return 0
+        })
+
+        function getVal(elm){
+            var v = $(elm).children('td').eq(n).text().toUpperCase()
+            if($.isNumeric(v)){
+                v = parseInt(v, 10)
+            }
+            return v
+        }
+        $.each(rows, function(index, row){
+            $('#myList').children('tbody').append(row)
+        })
+        // var list, rows, switching, i, x, y, shouldSwitch;
+        // list = document.getElementById("myList");
+        // switching = true;
+        // while (switching) {
+        //     switching = false
+        //     rows = list.rows
+        //     for (i = 1; i < (rows.length - 1); i++) {
+        //         shouldSwitch = false
+        //         x = rows[i].getElementByTagName("TD")[0]
+        //         y = rows[i + 1].getElementByTagName("TD")[0]
+        //         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+        //             shouldSwitch = true;
+        //             break
+        //         }
+        //     }
+        //     if(shouldSwitch){
+        //         rows[i].parentNode.insertBefore(rows[i + 1], rows[i])
+        //         switching = true
+        //     }
+        // }
+    }
+    var f_date = 1
+    var f_temp = 1
+    var f_pres = 1
+    $('#date').click(function(){
+        f_date *= -1
+        var n = $(this).prevAll().length
+        sortList(f_date,n)
+    })
+    $('#temp').click(function(){
+        f_temp *= -1
+        var n = $(this).prevAll().length
+        sortList(f_temp,n)
+    })
+    $('#pres').click(function(){
+        f_pres *= -1
+        var n = $(this).prevAll().length
+        sortList(f_pres,n)
+    })
+</script>
+
+</html>
