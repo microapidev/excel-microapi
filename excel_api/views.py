@@ -1,12 +1,13 @@
 import os
 import pandas as pd
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import json
 import sys
 import xlrd
+
 from excel_api.models import Files
 from excel_api.serializers import FileSerializer
 from rest_framework import generics
@@ -16,12 +17,13 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .excel_handler import test_file
 from .excel_handler import column_sum
-
+from openpyxl import load_workbook
 from django.core.files.storage import FileSystemStorage
 # import pythoncom
 # import win32com.client as win32
 from .Google import Create_Service
 from django.http import JsonResponse
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Create your views here.
@@ -78,6 +80,30 @@ def check_file(request):
     else:
         message = "Access Denied, Use post method"
         return JsonResponse(message, status=400, safe=False)
+
+@api_view(['POST'])
+def modify_file(request):
+    if request.method == 'POST':
+        file = request.data.get('content')
+        title = get_file_name(file)
+        data = json.loads(request.data.get('data'))
+        if title is None:
+            print("No File Uploaded")
+            return redirect(request.url)
+
+        sheet = data['sheet']
+        update = data['updated']
+
+        wb = load_workbook(file)
+        ws = wb.active
+        ws.append(update)
+       # textfile = "{}.xlsx".format(title)
+        #updated_file = Files.objects.create(title=title, content=wb)
+        wb.save(os.path.join(BASE_DIR, "media",title))
+        #updated_file.save()
+
+        return JsonResponse({"status":"Success"})
+    return "success"
 
 # @api_view(['POST'])
 # def column_sum(request):
