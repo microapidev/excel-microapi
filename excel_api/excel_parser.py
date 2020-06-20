@@ -2,7 +2,7 @@ import pandas as pd
 import xlrd
 from typing import List, Dict, Union
 import time
-
+from io import BytesIO
 
 def get_file_name(file_bytes_object: bytes) -> str:
     """
@@ -63,3 +63,35 @@ def start_timer() -> float:
     """
     start_time = time.time()
     return start_time
+
+
+def get_duplicates_excel(file_bytes_obj: bytes) -> Dict:
+    results = {"columns": None}
+    try:
+       
+        df = pd.read_excel(file_bytes_obj)
+        results = {'columns': []}
+        df_columns = df.columns
+        for col in df_columns:
+            results['columns'].append({col:dict(df[str(col)].value_counts())})     
+    except Exception as e:
+        print(e)
+    return results
+
+def save_duplicates(file_bytes_obj: bytes):
+    duplicates_dict = get_duplicates_excel(file_bytes_obj=file_bytes_obj)
+    
+    df a function to create a new xlsx file? you there??
+
+
+
+
+
+
+
+
+
+
+
+
+

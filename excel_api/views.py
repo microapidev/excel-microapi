@@ -10,7 +10,18 @@ import xlrd
 from excel_api.models import Files
 from excel_api.serializers import FileSerializer
 from rest_framework import generics
-from excel_api.excel_parser import get_file_name, start_timer
+from django.conf import settings
+
+
+from excel_api.excel_parser import get_duplicates_excel
+@api_view(['GET'])
+def get_duplicates(request):
+    media_root = settings.MEDIA_ROOT
+    file_name = request.GET.get("file_name")
+    media_root += f'\\files\{file_name}'
+    result = get_duplicates_excel(media_root)
+    return Response(result)
+
 
 
 # Create your views here.
@@ -44,3 +55,6 @@ def parserview(request):
 
 
     return Response(json_parsed)
+
+    
+    
