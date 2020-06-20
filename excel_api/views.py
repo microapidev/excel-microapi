@@ -19,8 +19,8 @@ from .excel_handler import test_file
 from .excel_handler import column_sum
 
 from django.core.files.storage import FileSystemStorage
-# import pythoncom
-# import win32com.client as win32
+import pythoncom
+import win32com.client as win32
 from .Google import Create_Service
 from django.http import JsonResponse
 
