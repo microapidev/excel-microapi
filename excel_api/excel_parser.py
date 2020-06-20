@@ -64,3 +64,41 @@ def start_timer() -> float:
     """
     start_time = time.time()
     return start_time
+
+
+def get_duplicates_excel(file_bytes_obj: bytes) -> Dict:
+    results = {"columns": None}
+    try:
+       
+        df = pd.read_excel(file_bytes_obj)
+        results = {'columns': []}
+        df_columns = df.columns
+        for col in df_columns:
+            results['columns'].append({str(col): dict(df[str(col)].value_counts())})     
+    except Exception as e:
+        print(e)
+    return results
+
+def save_duplicates_excel(file_bytes_obj: bytes):
+    result = {}
+    duplicates_dict = get_duplicates_excel(file_bytes_obj=file_bytes_obj)
+    df = pd.read_excel(file_bytes_obj, sheet_name=0, parse_dates=False)
+    df = df.drop_duplicates()
+
+    data = str(df.to_dict(orient="records"))
+    result = {"duplicates" : duplicates_dict, "data": data}
+    return result
+
+    
+
+
+
+
+
+
+
+
+
+
+
+

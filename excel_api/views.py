@@ -10,7 +10,8 @@ import xlrd
 from excel_api.models import Files
 from excel_api.serializers import FileSerializer
 from rest_framework import generics
-from excel_api.excel_parser import get_file_name, start_timer, parse_excel_file
+from excel_api.excel_parser import get_file_name, start_timer
+from excel_api.excel_parser import parse_excel_file, save_duplicates_excel
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -78,6 +79,17 @@ def check_file(request):
     else:
         message = "Access Denied, Use post method"
         return JsonResponse(message, status=400, safe=False)
+
+
+@csrf_exempt
+@api_view(['POST'])
+def process_duplicates(request):
+    file_obj = request.data.get('content')
+    duplicates = save_duplicates_excel(file_obj)
+    print(duplicates)
+    return Response(duplicates)
+
+
 
 # @api_view(['POST'])
 # def column_sum(request):
