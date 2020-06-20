@@ -2,11 +2,7 @@ import pandas as pd
 import xlrd
 from typing import List, Dict, Union
 import time
-<<<<<<< HEAD
-from io import BytesIO
-=======
 import xlrd.biffh
->>>>>>> 4853b7279337d750fedfae6d32b9839df497ff46
 
 def get_file_name(file_bytes_object: bytes) -> str:
     """
@@ -78,20 +74,21 @@ def get_duplicates_excel(file_bytes_obj: bytes) -> Dict:
         results = {'columns': []}
         df_columns = df.columns
         for col in df_columns:
-            results['columns'].append({col:dict(df[str(col)].value_counts())})     
+            results['columns'].append({str(col): dict(df[str(col)].value_counts())})     
     except Exception as e:
         print(e)
     return results
 
-def save_duplicates(file_bytes_obj: bytes):
-    result = None
+def save_duplicates_excel(file_bytes_obj: bytes):
+    result = {}
     duplicates_dict = get_duplicates_excel(file_bytes_obj=file_bytes_obj)
-    df = pd.read_excel(file_bytes_object, sheet_name=sheet_name, parse_dates=False)
+    df = pd.read_excel(file_bytes_obj, sheet_name=0, parse_dates=False)
     df = df.drop_duplicates()
-    return df.to_json()
-    a = ''
-def save_duplicates(file_bytes_obj: bytes):
-    duplicates_dict = get_duplicates_excel(file_bytes_obj=file_bytes_obj)
+
+    data = str(df.to_dict(orient="records"))
+    result = {"duplicates" : duplicates_dict, "data": data}
+    return result
+
     
 
 
