@@ -16,7 +16,7 @@ cd excel-microapi
 ```
 
 ## Step 2:
-### Create and activate a Python Virtual Environment
+### Create and activate a Python Virtual Environment (this command only runs on py3)
 
 ```python
 python -m venv venv
