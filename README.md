@@ -126,7 +126,7 @@ https://app.clubhouse.io/startng/story/44831/user-should-be-able-to-check-for-co
 ### NB:column has to be the column number counting from one, from left to right.
 https://app.clubhouse.io/startng/story/44888/return-the-sum-of-selected-column-in-excel-file-numbers-only
 
-## For the add row feature:
+## For the add row feature implemented by @sajjad:
 ### Endpoint: api/v1/add_row/
 ### Method: POST
 #### form-data
@@ -136,6 +136,11 @@ https://app.clubhouse.io/startng/story/44888/return-the-sum-of-selected-column-i
         "updated":["May-01",73,455]
 }
 https://app.clubhouse.io/startng/story/44819/user-should-be-able-to-modify-excel-data-write-back-to-excel-and-save-data-in-a-new-file
+
+
+## Create a Docker container for the excel service @Austin-Deccentric:
+https://app.clubhouse.io/startng/story/46935/docker-setup-create-the-docker-container-for-the-excel-parser-api
+
     
 
 
