@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
+from django.conf.global_settings import SECURE_PROXY_SSL_HEADER
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +25,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'xvpaga1=)u47y6i$%58g7_zjoev6d9l=c!j%qu)mczvd+fcc4^'
+SECRET_KEY =  'df56ter5y67yy5ygg'    #os.getenv('EXCELAPI_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,18 +37,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'excel_api.apps.ExcelApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'excel_api',
     'rest_framework',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -52,6 +59,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ExcelApi.urls'
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 TEMPLATES = [
     {
@@ -120,6 +128,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+if os.getcwd() == '/app':
+    import dj_database_url
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
+    #Honor the 'X-forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
+
+    #Allow all host headers
+    ALLOWED_HOSTS = ['excel-microapi-dev.herokuapp.com']
+    DEBUG = True
 
 # ...
 STATICFILES_DIRS = [
@@ -127,4 +148,9 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
+django_heroku.settings(locals())

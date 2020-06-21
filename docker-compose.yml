@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+ app:
+  container_name: excel-api
+  restart: always
+  build: .
+  command: bash -c “python manage.py migrate && python manage.py runserver 0.0.0.0:8000”
+  volumes:
+  - .:/app
+  ports:
+  - 8000:8000

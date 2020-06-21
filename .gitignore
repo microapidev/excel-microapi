@@ -1,2 +1,11 @@
 .idea
 __pycache__
+venv
+venv-linux
+.idea
+__pycache__
+*.sqlite
+env
+.env
+media/files/*.xls
+media/files/*.xlsx
