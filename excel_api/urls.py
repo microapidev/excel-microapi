@@ -9,7 +9,6 @@ urlpatterns = [
     path('getall/', FilesList.as_view()),
     path('checkfile/', check_file),
     path('column_sum/', column_sum),
-    path('column_sum/', column_sum),
     path('search/', search_file),
     path('duplicates/',process_duplicates),
 ]

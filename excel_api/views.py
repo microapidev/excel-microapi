@@ -1,5 +1,5 @@
 import os
-import pandas as pd
+import pandas as pdz
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -94,14 +94,19 @@ def process_duplicates(request):
 # @api_view(['POST'])
 # def column_sum(request):
 #     if request.method == 'POST':
-#
-#         file_obj = request.data.get('content')
-#         sheet_name = request.data.get('sheet')
-#         column_name = request.data.get('column')
-#
+
+#        file_obj = request.data.get('content')
+#       sheet_name = request.data.get('sheet')
+#       column_name = request.data.get('column')
+
+#         data = JSONParser().parse(request)
+#         file_obj = data['path']
+#         sheet_name = data['sheet']
+#         column_name = data['column']
+
 #         sum_result = column_sum(file_obj, sheet_name, column_name)
 #         return JsonResponse(sum_result, status=201, safe=False)
-#
+
 #     else:
 #         message = "Access Denied, Use post method"
 #         return JsonResponse(message, status=400, safe=False)

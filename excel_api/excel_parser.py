@@ -3,6 +3,7 @@ import xlrd
 from typing import List, Dict, Union
 import time
 import xlrd.biffh
+#import xlsxwriter
 
 def get_file_name(file_bytes_object: bytes) -> str:
     """
@@ -89,6 +90,39 @@ def save_duplicates_excel(file_bytes_obj: bytes):
     result = {"duplicates" : duplicates_dict, "data": data}
     return result
 
+# import pandas as pd
+# import xlrd
+
+# loc = "Book1.xlsx"
+# wb = xlrd.open_workbook(loc)
+# sheet = wb.sheet_by_index(0)
+# numcols = sheet.ncols
+# write_colummn = numcols + 1
+# # Create a Pandas dataframe from the data.
+# df = pd.DataFrame({'Data': [10, 20, 30, 20, 15, 30, 45]})
+
+# # Create a Pandas Excel writer using XlsxWriter as the engine.
+# writer = pd.ExcelWriter(loc, engine='xlsxwriter')
+
+# # Convert the dataframe to an XlsxWriter Excel object.
+
+# df.to_excel(writer, sheet_name='Sheet1', startcol=write_colummn, index=False)
+
+# # Close the Pandas Excel writer and output the Excel file.
+# writer.save()
+    
+
+#def create_new_file(file_bytes_obj: bytes):
+ #   new = request.data.get('result')
+
+  #  newWorkbook = pd.Workbook('new.xlsx')
+   # outputSheet = newWorkbook.add_worksheet()
+
+    #df = pd.DataFrame(new)
+
+    #print(df[['Duplicates']])
+
+    #outputSheet.write('A1', 'Duplicates')
     
 
 
