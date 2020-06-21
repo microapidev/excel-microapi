@@ -20,8 +20,8 @@ from .excel_handler import column_sum
 from .excel_parser import print_duplicates
 
 from django.core.files.storage import FileSystemStorage
-import pythoncom
-import win32com.client as win32
+#import pythoncom
+#import win32com.client as win32
 from .Google import Create_Service
 from django.http import JsonResponse
 
