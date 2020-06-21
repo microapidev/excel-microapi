@@ -75,11 +75,11 @@ def get_duplicates_excel(file_bytes_obj: bytes) -> Dict:
     results = {"columns": None}
     try:
        
-        df = pd.read_excel(file_bytes_obj)
+        df = pd.read_excel(file_bytes_object, sheet_name=sheet_name, parse_dates=False)
         results = {'columns': []}
         df_columns = df.columns
         for col in df_columns:
-            results['columns'].append({str(col): dict(df[str(col)].value_counts())})     
+            results['columns'].append({col: dict(df[col].value_counts())})     
     except Exception as e:
         print(e)
     return results
@@ -104,7 +104,7 @@ def print_duplicates(file_bytes_obj: bytes) -> Dict:
         results = {'columns': []}
         df_columns = df.columns
         for col in df_columns:
-            results['columns'].append({str(col): dict(df[str(col)].value_counts())})     
+            results['columns'].append({col: dict(df[col].value_counts())})     
     except Exception as e:
         print(e)
     return results
