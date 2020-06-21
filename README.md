@@ -50,6 +50,93 @@ python manage.py runserver
 ### Test with Postman:
 Make a Post request with Postman. You can download it [here](https://www.postman.com/downloads/)
     ![Making a Post Request](docs/images/posting_a_request_postman.jpg)
+    
+# Testing the endpoints.
+
+# For the parse feature(display runtime to webpage, display success or error message to webpage) implemented by @adah:
+### Endpoint: api/v1/parse/
+### Method: POST
+### Key: content
+### Value: Excel file upload 
+### Returns: Json with Parsed values and process_time to Parse Excel file.
+https://app.clubhouse.io/startng/story/44854/display-success-error-message-to-webpage
+https://app.clubhouse.io/startng/story/44837/display-runtime-it-took-to-get-your-results-on-webpage
+https://app.clubhouse.io/startng/story/44809/create-excel-scripts-parser-that-returns-json-output
+        
+        
+        
+## For the get duplicates feature implemented by @p_yn3:
+### Method: POST
+### Endpoint: api/v1/duplicates/
+### Key: content
+### Value: From the uploaded excel file.
+### Return: Returns duplicate values, drops all but 11 instance of each.
+https://app.clubhouse.io/startng/story/44826/user-should-be-able-to-display-and-edit-replace-delete-duplicate-data
+    
+## For the print duplicates feature implemented by @p_yn3:
+### Method: POST
+### Endpoint: api/v1/printduplicates/
+### Key: "content"
+### Value: Output of the get duplicates feature
+### Return: Prints duplicates to new column in excel sheet.
+https://app.clubhouse.io/startng/story/53934/return-1-instance-of-each-duplicate-and-write-them-to-a-new-column
+
+## Implement the Crud create feature implemented y @p_yn3:
+https://app.clubhouse.io/startng/story/43196/crud-create-feature
+    
+## For the search feature implemented by @oluwanifemibam:
+### Method: POST
+### Endpoint : api/v1/search
+### json data:
+    {"column":The cloumn in which to search e.g A
+    "content":File Upload
+### Keyword:The keyword which you want to search for in that column}
+### Returns: {"status":True or False}
+https://app.clubhouse.io/startng/story/49279/have-a-search-filename-route-which-will-search-for-a-keyword-in-a-particular-file-and-return-the-amount-of-occurrences-of
+
+## For the getall feature implemented by @oluwanifemibam:
+### Endpoint : api/v1/getall
+### Method: GET
+### Return: all the files stored, the titles with which they were stored , and the location they were stored at.
+https://app.clubhouse.io/startng/story/49267/have-a-getall-route-which-will-get-all-the-filenames-of-the-existing-uploaded-files
+
+## For the add feature implemented by @oluwanifemibam:
+### Endpoint : api/v1/add
+### Method: POST
+### json data:
+{"title":The title(a name the user can remember) that the user wishes to use to store the file
+# Content: File Upload
+https://app.clubhouse.io/startng/story/53983/have-a-add-route-at-which-users-can-upload-an-excel-file-to-be-stored-in-our-media-server
+
+## For the check for corrupt excel file feature implemented by @greg:
+### Endpoint: api/v1/checkfile/     
+### Method: POST
+### Key: "content" 
+### Value: File Upload
+### Returns: Returns either unexpected error or file is clean.
+https://app.clubhouse.io/startng/story/44831/user-should-be-able-to-check-for-corrupt-excel-file-and-display-error-messag
+
+## For the return the integer sum of selected columns implemented by @greg:
+### Endpoint: api/v1/column_sum/
+### Method: POST
+### Key: "content"
+### Value: uploaded excel file 
+### Key:column
+### value: 1
+### NB:column has to be the column number counting from one, from left to right.
+https://app.clubhouse.io/startng/story/44888/return-the-sum-of-selected-column-in-excel-file-numbers-only
+
+## For the add row feature:
+### Endpoint: api/v1/add_row/
+### Method: POST
+#### form-data
+        KEY 1: "content ", VALUE1: excel file upload
+        KEY 2: "data", VALUE2: {"sheet":<name of sheet>, "updated":<list of new row, in square brackets and seperated by comma>
+        SAMPLE_REQUEST: {"sheet":"sheet1",
+        "updated":["May-01",73,455]
+}
+https://app.clubhouse.io/startng/story/44819/user-should-be-able-to-modify-excel-data-write-back-to-excel-and-save-data-in-a-new-file
+    
 
 
 # Contributing
