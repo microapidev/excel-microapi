@@ -1,5 +1,5 @@
 import os
-import pandas as pdz
+import pandas as pd
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -17,6 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .excel_handler import test_file
 from .excel_handler import column_sum
+from .excel_parser import print_duplicates
 
 from django.core.files.storage import FileSystemStorage
 import pythoncom
@@ -28,13 +29,13 @@ from django.http import JsonResponse
 # Create your views here.
 class FilesList(generics.ListCreateAPIView):
 # View to list all occurences of file
-class FilesList(generics.ListAPIView):
+ class FilesList(generics.ListAPIView):
     queryset = Files.objects.all()
     serializer_class = FileSerializer
 
 
 # View to add a new file
-class FilesAdd(generics.CreateAPIView):
+ class FilesAdd(generics.CreateAPIView):
     queryset = Files.objects.all()
     serializer_class = FileSerializer
 
@@ -154,13 +155,14 @@ def export(request):
     #return render(request, 'index.html')
 
 @csrf_exempt
+def filesAdd(request):
     file_obj = request.data.get('content')
     title = get_file_name(file_obj)
     result = parse_excel_file(file_obj)
     if result.get('data') is not None:
         file = Files.objects.create(title=title, content=file_obj)
         file.save()
-
+    
     json_parsed = result
     return JsonResponse(json_parsed)
 
@@ -198,29 +200,38 @@ def check_file(request):
 @csrf_exempt
 @api_view(['POST'])
 def process_duplicates(request):
-    file_obj = request.data.get('content')
-    duplicates = save_duplicates_excel(file_obj)
-    print(duplicates)
-    return Response(duplicates)
+        file_obj = request.data.get('content')
+        duplicates = save_duplicates_excel(file_obj)
+        print(duplicates)
+        return Response(duplicates)
+
+@csrf_exempt
+@api_view(['POST'])
+def print_duplicate(request):
+        file_obj = request.data.get('content')
+        new_col = print_duplicates(file_obj)
+        print(new_col)
+        return Response(new_col)
 
 
 
-# @api_view(['POST'])
-# def column_sum(request):
-#     if request.method == 'POST':
 
-#        file_obj = request.data.get('content')
-#       sheet_name = request.data.get('sheet')
-#       column_name = request.data.get('column')
+@api_view(['POST'])
+def column_sum(request):
+    if request.method == 'POST':
 
-#         data = JSONParser().parse(request)
-#         file_obj = data['path']
-#         sheet_name = data['sheet']
-#         column_name = data['column']
+       file_obj = request.data.get('content')
+#      sheet_name = request.data.get('sheet')
+       column_num = request.data.get('column')
 
-#         sum_result = column_sum(file_obj, sheet_name, column_name)
-#         return JsonResponse(sum_result, status=201, safe=False)
+        # data = JSONParser().parse(request)
+        # file_obj = data['path']
+        # sheet_name = data['sheet']
+        # column_name = data['column']
 
-#     else:
-#         message = "Access Denied, Use post method"
-#         return JsonResponse(message, status=400, safe=False)
+       sum_result = column_sum(file_obj, column_num)
+       return JsonResponse(sum_result, status=201, safe=False)
+
+    else:
+        message = "Access Denied, Use post method"
+        return JsonResponse(message, status=400, safe=False)

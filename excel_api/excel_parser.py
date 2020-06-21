@@ -67,6 +67,10 @@ def start_timer() -> float:
     return start_time
 
 
+
+
+
+
 def get_duplicates_excel(file_bytes_obj: bytes) -> Dict:
     results = {"columns": None}
     try:
@@ -90,26 +94,36 @@ def save_duplicates_excel(file_bytes_obj: bytes):
     result = {"duplicates" : duplicates_dict, "data": data}
     return result
 
-# import pandas as pd
-# import xlrd
 
-# loc = "Book1.xlsx"
-# wb = xlrd.open_workbook(loc)
-# sheet = wb.sheet_by_index(0)
-# numcols = sheet.ncols
-# write_colummn = numcols + 1
-# # Create a Pandas dataframe from the data.
-# df = pd.DataFrame({'Data': [10, 20, 30, 20, 15, 30, 45]})
 
-# # Create a Pandas Excel writer using XlsxWriter as the engine.
-# writer = pd.ExcelWriter(loc, engine='xlsxwriter')
+def print_duplicates(file_bytes_obj: bytes) -> Dict:
+    results ={"columns": []}
+    try:
 
-# # Convert the dataframe to an XlsxWriter Excel object.
+        df = pd.read_excel(file_bytes_obj)
+        results = {'columns': []}
+        df_columns = df.columns
+        for col in df_columns:
+            results['columns'].append({str(col): dict(df[str(col)].value_counts())})     
+    except Exception as e:
+        print(e)
+    return results
 
-# df.to_excel(writer, sheet_name='Sheet1', startcol=write_colummn, index=False)
+    wb = xlrd.open_workbook(file_bytes_obj)
+    sheet = wb.sheet_by_index(0)
+    numcols = sheet.ncols
+    write_colummn = numcols + 1
+    
+    df = pd.DataFrame(results)
 
-# # Close the Pandas Excel writer and output the Excel file.
-# writer.save()
+    writer = pd.ExcelWriter(file_bytes_obj, engine='xlsxwriter')
+
+
+    df.to_excel(writer, sheet_name='Sheet1', startcol=write_colummn, index=False)
+
+    writer.save()
+
+
     
 
 #def create_new_file(file_bytes_obj: bytes):
