@@ -255,3 +255,9 @@ def column_sum(request):
     else:
         message = "Access Denied, Use post method"
         return JsonResponse(message, status=400, safe=False)
+
+# for the doc
+
+def doc(request):
+
+    return render(request, 'doc.html')
