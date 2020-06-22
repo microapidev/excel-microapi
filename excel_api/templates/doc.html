@@ -46,7 +46,7 @@
     <body>
         <div id="content">
             <h2 id="main_header"><u> Excel MicroAPI Documentation. </u></h2>
-                <p> This is a Microservice for managing excel files, it runs on the Django Framework.</p>
+                <p> This is a Microservice for managing excel files, it runs on the Django Framework, supported by <br> Django-rest Framework</p>
 
             <h3> Features </h3>
                 <p class="a"> Some of the features of this API include parsing an excel file and returning JSON data, <br> checking the excel file for duplicate values, checking for corrupt excel files and many more <br> which can be called using the endpoints which are listed below. </p>
@@ -128,7 +128,7 @@
                     <li><b>Value:</b> file upload </li>
                     <li><b>Key:</b> column </li>
                     <li><b>Value:</b> Column Number </li>
-                    <li><b>Return:</b> Returns either unexpected error or file is clean. </li>
+                    <li><b>Return:</b> Returns the integer sum of the columns. </li>
                 <p class="a"> NB:column has to be the column number counting from one, from left to right. </p>
 
             <h4> Export Excel to GoogleSheet </h4>
@@ -139,7 +139,7 @@
                     <li><b>Key:</b> excelfile </li>
                     <li><b>Value:</b> file upload </li>
                     <li><b>Key:</b> sheetid </li>
-                    <li><b>Value:</b> GoogleSheet id gootten from sheet url </li>
+                    <li><b>Value:</b> GoogleSheet id gotten from sheet url </li>
                     <li><b>Key:</b> sheetname </li>
                     <li><b>Value:</b> particular sheet name to be exported on the excel document </li>
                     <li><b>Key:</b> excelstartregion </li>
