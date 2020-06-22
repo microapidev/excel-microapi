@@ -271,4 +271,4 @@ def column_sum(request):
 
 def doc(request):
 
-    return render(request, 'doc.html', context=context)
+    return render(request, 'doc.html')

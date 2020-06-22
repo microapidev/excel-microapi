@@ -126,8 +126,27 @@
                     <li><b>Method:</b> POST </li>
                     <li><b>Key:</b> content </li>
                     <li><b>Value:</b> file upload </li>
+                    <li><b>Key:</b> column </li>
+                    <li><b>Value:</b> Column Number </li>
                     <li><b>Return:</b> Returns either unexpected error or file is clean. </li>
                 <p class="a"> NB:column has to be the column number counting from one, from left to right. </p>
+
+            <h4> Export Excel to GoogleSheet </h4>
+                <p class="a"> This function that exports excel document to a google sheet </p>
+
+                    <li><b>Endpoint:</b> api/v1/export/ </li>
+                    <li><b>Method:</b> POST </li>
+                    <li><b>Key:</b> excelfile </li>
+                    <li><b>Value:</b> file upload </li>
+                    <li><b>Key:</b> sheetid </li>
+                    <li><b>Value:</b> GoogleSheet id gootten from sheet url </li>
+                    <li><b>Key:</b> sheetname </li>
+                    <li><b>Value:</b> particular sheet name to be exported on the excel document </li>
+                    <li><b>Key:</b> excelstartregion </li>
+                    <li><b>Value:</b> Cell region of the start position on the excel file Ex: A1, B2,... </li>
+                    <li><b>Key:</b> googlesheetstartregion </li>
+                    <li><b>Value:</b> Cell region of the start position on the google sheet Ex: A1, B2,... </li>
+                    <li><b>Return:</b> Return s message of either file uploaded succesfully or an error occured </li>
 
             <h4> The add row function: </h4>
                 <p class="a"> This function adds new rows to the spreadsheet </p> 
