@@ -1,0 +1,8 @@
+.nav{
+    background-color: lightgrey !important;
+    padding: 10px 4px;
+}
+
+.dropdown-item:hover{
+    background-color: lightgrey !important;
+}
