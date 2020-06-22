@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8"/>
+        <title> Excel MicroAPI Dcoumentation</title>
+
+
+        <style>
+
+            body {
+                background-color: #008080;
+                display: flex;
+                width: 90%;
+                padding: 50px;
+                margin: auto;
+                justify-content: center;
+            }
+
+            #content {
+                background-color: #ffff;
+                padding: 20px;
+                margin: auto;
+                width: 70%;
+                align-content: center;
+                box-shadow: rgb(232, 232, 232) 3px 3px 10px;
+                border-radius: 15px;
+            }
+            #main_header {
+                text-align: center;
+            }
+
+            .a {
+                text-indent: 30px;
+            }
+
+            footer {
+                text-align: center;
+                margin-top: 50px;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <div id="content">
+            <h2 id="main_header"><u> Excel MicroAPI Documentation. </u></h2>
+                <p> This is a Microservice for managing excel files, it runs on the Django Framework.</p>
+
+            <h3> Features </h3>
+                <p class="a"> Some of the features of this API include parsing an excel file and returning JSON data, <br> checking the excel file for duplicate values, checking for corrupt excel files and many more <br> which can be called using the endpoints which are listed below. </p>
+
+            <h4> The parse function: </h4>
+                <p class="a"> This function parses the specified excel sheet and returns the values in JSON format.<br> Also displays runtime to webpage, and a success or error message to webpage after each parse.</p>
+
+                    <li><b>Endpoint:</b> api/v1/parse/ </li>
+                    <li><b>Method:</b> POST </li>
+                    <li><b>Key:</b> content
+                    <li><b>Value:</b> file upload </li>
+                    <li><b>Return:</b> Json with Parsed values and process_time to Parse Excel file.</li>
+            
+            <h4> The duplicates function: </h4>
+                <p class="a"> This function checks the excel file for duplicate values, displays those values and <br>returns a single instance of each duplicate. </p>
+
+                    <li><b>Endpoint:</b> api/v1/duplicates/ </li>
+                    <li><b>Method:</b> POST </li>
+                    <li><b>Key:</b> content </li>
+                    <li><b>Value:</b> file upload </li>
+                    <li><b>Return:</b> Returns the duplicate values. </li>
+
+            <h4> The print duplicates function: </h4>
+                <p class"a"> This function simply prints out the duplicates into a new column in the excel sheet. </p>
+
+                    <li><b>Endpoint:</b> api/v1/printduplicates/ </li>
+                    <li><b>Method:</b> POST </li>
+                    <li><b>Key:</b> content </li>
+                    <li><b>Value:</b> output of the get duplicates function </li>
+                    <li><b>Return:</b> Prints duplicates to new column in excel sheet. </li>
+
+            <h4> The search function: </h4>
+                <p class="a"> This function searches for values in a specified column on the spreadsheet </p>
+
+                    <li><b>Endpoint:</b> api/v1/search/ </li>
+                    <li><b>Method:</b> POST </li>
+                    <code class="a">
+                            json data:
+                        {"column":The cloumn in which to search e.g A
+                        "content":File Upload
+                    </code>
+                    <li><b>Key:</b> The keyword which you want to search for in that column </li>
+                    <li><b>Return:</b> {"status":True or False} </li>
+
+            <h4> The getall function: </h4>
+                <p class="a"> This function simply returns all files stored, the names they were stored with and the<br> location they're stored in. </p>
+
+                    <li><b>Endpoint:</b> api/v1/getall/ </li>
+                    <li><b>Method:</b> GET </li>
+                    <li><b>Key:</b> content </li>
+                    <li><b>Return:</b> index of stored files. </li>    
+
+            <h4> The add function: </h4>
+                <p class="a"> This function that stores a file into the database with a custom name chosen by the user </p>
+
+                    <li><b>Endpoint:</b> api/v1/add/ </li>
+                    <li><b>Method:</b> POST </li>
+                    <li><b>Key:</b> title </li>
+                    <li><b>Value:</b> 
+                    <li><b>Key:</b> content </li>
+                    <li><b>Value:</b> file the user wants to upload </li>
+                    
+                   
+            <h4> The check for corrupt file function: </h4>
+                <p class="a"> This function simply checks if a file is corrupt. </p>
+                    
+                    <li><b>Endpoint:</b> api/v1/checkfile/ </li>
+                    <li><b>Method:</b> POST </li>
+                    <li><b>Key:</b> content </li>
+                    <li><b>Value:</b> file upload </li>
+                    <li><b>Return:</b> Returns either unexpected error or file is clean. </li>
+
+            <h4> The return the integer sum of selected columns: </h4>
+                <p class="a"> This function returns the integer sum (whole number) of the specified columns. </p>
+
+                    <li><b>Endpoint:</b> api/v1/column_sum/ </li>
+                    <li><b>Method:</b> POST </li>
+                    <li><b>Key:</b> content </li>
+                    <li><b>Value:</b> file upload </li>
+                    <li><b>Return:</b> Returns either unexpected error or file is clean. </li>
+                <p class="a"> NB:column has to be the column number counting from one, from left to right. </p>
+
+            <h4> The add row function: </h4>
+                <p class="a"> This function adds new rows to the spreadsheet </p> 
+                    
+                    <li><b>Endpoint:</b> api/v1/add_row/ </li>
+                    <li><b>Method:</b> POST </li>
+                    <li><b>Key:</b> content </li>
+                    <li><b>Value:</b> file upload </li>
+                    <li><b>Return:</b> new row in spreadsheet </li> 
+
+
+                <footer> &#169; 2020 HNGi</footer>  
+            
+        </div>
+    </body
+
+</html>
