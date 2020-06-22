@@ -146,10 +146,10 @@
                     <li><b>Value:</b> Cell region of the start position on the excel file Ex: A1, B2,... </li>
                     <li><b>Key:</b> googlesheetstartregion </li>
                     <li><b>Value:</b> Cell region of the start position on the google sheet Ex: A1, B2,... </li>
-                    <li><b>Return:</b> Return s message of either file uploaded succesfully or an error occured </li>
+                    <li><b>Return:</b> Returns message of either file uploaded succesfully or an error occured </li>
 
             <h4> The add row function: </h4>
-                <p class="a"> This function adds new rows to the spreadsheet </p> 
+                <p class="a"> This function adds new rows to the spreadsheet: </p> 
                     
                     <li><b>Endpoint:</b> api/v1/add_row/ </li>
                     <li><b>Method:</b> POST </li>
@@ -157,8 +157,45 @@
                     <li><b>Value:</b> file upload </li>
                     <li><b>Return:</b> new row in spreadsheet </li> 
 
+            <h3> Want to contribute to this project </h3>
+                <p class="a"> Check out our code on <a style="color: #008080" href="https://github.com/microapidev/excel-microapi/tree/master">Github</a> and follow these simple steps </p>
 
-                <footer> &#169; 2020 HNGi</footer>  
+            <h3><b>Step 1</b></h3>
+                    <li>Clone the dev branch of the project</li>
+                        <code>
+                            git clone --single-branch --branch dev https://github.com/microapidev/excel-microapi
+                                cd excel-microapi
+                        </code>
+
+            <h3><b>Step 2</b></h3>
+                    <li>Fork the repository</li>
+                        
+            <h3><b>Step 3</b></h3>
+                    <li>Update the push url for the local repo on your machine</li>
+                        <code>
+                            git remote origin set-url --push <insert forked url here>
+                        </code>
+
+            <h3><b>Step 4</b></h3>             
+                    <li>Create a new Branch with the feature name</li>
+                        <p class="a"> First pull the recent changes before creating a branch</p>
+                        <code>
+                            git pull
+                            git branch <feature_i_want_to_add>
+                        </code>
+                        <p class="a">Work on your new changes and then push to your branch</p>
+                        <code>
+                            git push -u origin <feature_i_want_to_add>
+                        </code>
+
+            <h3><b>Step 5</b></h3>
+                    <li>Make a Pull request on Github</li>
+
+
+
+
+
+            <footer> &#169; 2020 HNGi</footer>  
             
         </div>
     </body
