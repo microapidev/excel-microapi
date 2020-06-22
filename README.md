@@ -9,9 +9,9 @@ It runs on the Django Framework, supported by Django Rest Framework
 
 
 ## Step 1:
-### Clone the project
+### Clone the master branch of the project
 ```bash
-git clone https://github.com/microapidev/excel-microapi
+git clone --single-branch --branch master https://github.com/microapidev/excel-microapi
 cd excel-microapi
 ```
 
